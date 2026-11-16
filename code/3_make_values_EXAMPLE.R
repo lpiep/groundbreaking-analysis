@@ -8,7 +8,8 @@ dat <- read_csv(here('data/processed/quarterly_obs_EXAMPLE.csv'))
 write_tex_vars(
   list(
     `avgglowwormsightings_EXAMPLE` = dat %>% filter(organism_name == 'Glowworm') %>% pull(sightings) %>% mean(),
-    `avgorchidsightings_EXAMPLE` = dat %>% filter(organism_name == 'Orchid') %>% pull(sightings) %>% mean()
+    `avgorchidsightings_EXAMPLE` = dat %>% filter(organism_name == 'Orchid') %>% pull(sightings) %>% mean(),
+    `commonOrg_EXAMPLE` = dat %>% group_by(organism_name) %>% summarize(n = n()) %>% arrange(desc(n)) %>% slice_head(n=1) %>% pull(organism_name)
   ),
   path = here('tex/vals.tex')
 )
